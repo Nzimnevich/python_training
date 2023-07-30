@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from group import Group
 import unittest
 
 
@@ -18,7 +19,7 @@ class UntitledTestCase(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, user_name="admin", password="secret")
         self.open_groups_page(wd)
-        self.create_group(wd, group_name="ssdd",group_header= "sssss",group_footer= "sss")
+        self.create_group(wd, Group(name="ssdd", header= "sssss", footer= "sss"))
         self.open_groups_page(wd)
         self.logout(wd)
 
@@ -27,25 +28,25 @@ class UntitledTestCase(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, user_name="admin", password="secret")
         self.open_groups_page(wd)
-        self.create_group(wd, group_name="", group_header="", group_footer="")
+        self.create_group(wd, Group(name="", header="", footer=""))
         self.open_groups_page(wd)
         self.logout(wd)
     def logout(self, wd):
         wd.find_element(By.LINK_TEXT, "Logout").click()
 
-    def create_group(self, wd, group_name, group_header, group_footer):
+    def create_group(self, wd, group):
         # init group creation
         wd.find_element(By.XPATH, "//div[@id='content']/form/input[4]").click()
         # fill group form
         wd.find_element(By.NAME, "group_name").click()
         wd.find_element(By.NAME, "group_name").clear()
-        wd.find_element(By.NAME, "group_name").send_keys(group_name)
+        wd.find_element(By.NAME, "group_name").send_keys(group.name)
         wd.find_element(By.NAME, "group_header").click()
         wd.find_element(By.NAME, "group_header").clear()
-        wd.find_element(By.NAME, "group_header").send_keys(group_header)
+        wd.find_element(By.NAME, "group_header").send_keys(group.header)
         wd.find_element(By.NAME, "group_footer").click()
         wd.find_element(By.NAME, "group_footer").clear()
-        wd.find_element(By.NAME, "group_footer").send_keys(group_footer)
+        wd.find_element(By.NAME, "group_footer").send_keys(group.footer)
         # submit group creation
         wd.find_element(By.NAME, "submit").click()
 
