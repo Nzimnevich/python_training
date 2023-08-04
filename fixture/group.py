@@ -7,7 +7,7 @@ class GroupHelper:
 
     def create(self, group):
         wd = self.app.wd
-        self.open_groups_page()
+        self.app.navigation.open_groups_page()
         # init group creation
         wd.find_element(By.XPATH, "//div[@id='content']/form/input[4]").click()
         # fill group form
@@ -22,8 +22,9 @@ class GroupHelper:
         wd.find_element(By.NAME, "group_footer").send_keys(group.footer)
         # submit group creation
         wd.find_element(By.NAME, "submit").click()
-        self.open_groups_page()
+        self.app.navigation.open_groups_page()
 
-    def open_groups_page(self):
+    def click_enter_btn(self):
         wd = self.app.wd
-        wd.find_element(By.LINK_TEXT, "groups").click()
+        wd.find_element(By.XPATH, "//div[@id='content']/form/input[21]").click()
+
