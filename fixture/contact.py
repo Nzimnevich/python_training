@@ -10,8 +10,13 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element(By.XPATH, "//div[@id='content']/form/input[21]").click()
 
+    def click_update_btn(self):
+        wd = self.app.wd
+        wd.find_element(By.NAME, "update").click()
+
     def fill_add_contact_form(self, contact):
         wd = self.app.wd
+        wd.find_element(By.NAME, "firstname").clear()
         wd.find_element(By.NAME, "firstname").click()
         wd.find_element(By.NAME, "firstname").clear()
         wd.find_element(By.NAME, "firstname").send_keys(contact.firstname)
@@ -85,3 +90,19 @@ class ContactHelper:
         wd.find_element(By.NAME, "notes").click()
         wd.find_element(By.NAME, "notes").clear()
         wd.find_element(By.NAME, "notes").send_keys(contact.notes)
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        # select first group
+        wd.find_element(By.XPATH, "//*[@name='entry']//input").click()
+        # click delete btn
+        wd.find_element(By.XPATH, "//*[@id='content']/form[2]/div[2]/input").click()
+        wd.switch_to.alert.accept()
+
+    def changed_first_contact(self, contact):
+        self.click_edite_btn()
+        self.fill_add_contact_form(contact)
+
+    def click_edite_btn(self):
+        wd = self.app.wd
+        wd.find_element(By.XPATH, "//*[@class ='center'][3]").click()

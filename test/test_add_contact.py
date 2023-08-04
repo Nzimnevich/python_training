@@ -4,7 +4,7 @@ from model.contact import Contact
 
 def test_add_contact_test_case(app):
     app.session.login(user_name="admin", password="secret")
-    app.navigation.open_contact_page()
+    app.navigation.open_edit_contact_page()
     app.contact.fill_add_contact_form(
         Contact("Nika", "Zimnevich", "sergeevna", "heloooo", "webinar", "drawertrtr street",
                 "6", "792516728272", "33444", "we3333", "trtshjssj@gmail.ru",
