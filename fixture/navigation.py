@@ -9,7 +9,7 @@ class NavigationHelper:
         wd = self.app.wd
         wd.get("http://localhost/addressbook/index.php")
 
-    def open_edit_contact_page(self):
+    def open_add_contact_page(self):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "add new").click()
 
