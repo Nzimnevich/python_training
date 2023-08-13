@@ -34,11 +34,10 @@ class SessionHelper:
         wd.find_element(By.NAME, "pass").send_keys(password)
         wd.find_element(By.XPATH, "//input[@value='Login']").click()
 
-    def ensure_login(self, username, password):
-        wd = self.app.wd
+    def ensure_login(self, user_name, password):
         if self.is_logged_in():
-            if self.is_logged_in_as(username):
+            if self.is_logged_in_as(user_name):
                 return
             else:
                 self.logout()
-        self.login(self, username, password)
+        self.login(user_name, password)

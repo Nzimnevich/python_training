@@ -10,12 +10,6 @@ class GroupHelper:
         self.change_field_value("group_name", group)
         self.change_field_value("group_header", group)
         self.change_field_value("group_footer", group)
-        wd.find_element(By.NAME, "group_header").click()
-        wd.find_element(By.NAME, "group_header").clear()
-        wd.find_element(By.NAME, "group_header").send_keys(group.header)
-        wd.find_element(By.NAME, "group_footer").click()
-        wd.find_element(By.NAME, "group_footer").clear()
-        wd.find_element(By.NAME, "group_footer").send_keys(group.footer)
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
