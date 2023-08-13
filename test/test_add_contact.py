@@ -3,7 +3,6 @@ from model.contact import Contact
 
 
 def test_add_contact_test_case(app):
-    app.session.login(user_name="admin", password="secret")
     app.navigation.open_add_contact_page()
     app.contact.fill_add_contact_form(
         Contact("Nika", "Zimnevich", "sergeevna", "heloooo", "webinar", "drawertrtr street",
@@ -13,4 +12,3 @@ def test_add_contact_test_case(app):
                 "15", "November", "2020", "djdjjd street", "34", "hi!"))
     app.contact.click_enter_btn()
     app.navigation.open_home_page()
-    app.session.logout()

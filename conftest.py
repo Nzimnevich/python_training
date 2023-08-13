@@ -1,11 +1,15 @@
-
 from fixture.application import Application
 import pytest
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def app(request):
     fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
+    fixture.session.login(user_name="admin", password="secret")
 
+    def fin():
+        fixture.session.logout()
+        fixture.destroy
+
+    request.addfinalizer(fin)
+    return fixture
