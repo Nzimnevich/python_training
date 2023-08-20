@@ -11,8 +11,10 @@ class NavigationHelper:
 
     def open_add_contact_page(self):
         wd = self.app.wd
-        wd.find_element(By.LINK_TEXT, "add new").click()
+        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements(By.ID, "content")) > 0):
+            wd.find_element(By.LINK_TEXT, "add new").click()
 
     def open_groups_page(self):
         wd = self.app.wd
-        wd.find_element(By.LINK_TEXT, "groups").click()
+        if not (wd.current_url.endswith("/group.php") and len(wd.find_elements(By.NAME, "new")) > 0):
+            wd.find_element(By.LINK_TEXT, "groups").click()
