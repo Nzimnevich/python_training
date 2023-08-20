@@ -6,7 +6,6 @@ class GroupHelper:
         self.app = app
 
     def fill_group_form(self, group):
-        wd = self.app.wd
         self.change_field_value("group_name", group)
         self.change_field_value("group_header", group)
         self.change_field_value("group_footer", group)
@@ -60,3 +59,8 @@ class GroupHelper:
     def click_edit_btn(self):
         wd = self.app.wd
         wd.find_element(By.NAME, "edit").click()
+
+    def count(self):
+        wd = self.app.wd
+        self.app.navigation.open_groups_page()
+        return len(wd.find_elements(By.NAME, "selected[]"))
