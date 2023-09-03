@@ -60,20 +60,28 @@ class ContactHelper:
             wd.find_element(By.NAME, field_name).send_keys(text)
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         # select first group
-        wd.find_element(By.XPATH, "//*[@name='entry']//input").click()
+        wd.find_elements(By.XPATH, "//*[@name='entry']//input")[index].click()
         # click delete btn
         wd.find_element(By.XPATH, "//*[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to.alert.accept()
 
     def changed_first_contact(self, contact):
-        self.click_edite_btn()
+        self.changed_contact_by_index(contact, 0)
+
+    def changed_contact_by_index(self, contact, index):
+        self.click_edite_btn(index)
         self.fill_add_contact_form(contact)
 
-    def click_edite_btn(self):
+    def click_edite_btn(self, index):
         wd = self.app.wd
-        wd.find_element(By.XPATH, "//*[@class ='center'][3]").click()
+        ind = str(int(index) + 2)
+        css_celector = f'tr:nth-child({ind}) > td:nth-child(8)'
+        wd.find_element(By.CSS_SELECTOR, css_celector).click()
 
     def count(self):
         wd = self.app.wd
