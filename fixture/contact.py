@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from model.contact import Contact
 
 
 class ContactHelper:
@@ -75,3 +76,14 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         return len(wd.find_elements(By.NAME, "selected[]"))
+
+    def get_contacts(self):
+        wd = self.app.wd
+        contacts = []
+        for element in wd.find_elements(By.CSS_SELECTOR, "[name='entry']"):
+            lastname = element.find_element(By.CSS_SELECTOR, 'td:nth-child(2)').text
+            firstname = element.find_element(By.CSS_SELECTOR, 'td:nth-child(3)').text
+            id = element.find_element(By.CSS_SELECTOR, "input").get_attribute("value")
+            contacts.append(Contact(lastname=lastname, firstname=firstname, id=id))
+        return contacts
+
