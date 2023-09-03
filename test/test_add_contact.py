@@ -13,7 +13,8 @@ def test_add_contact_test_case(app):
     app.contact.fill_add_contact_form(contact)
     app.contact.click_enter_btn()
     app.navigation.open_home_page()
+
+    assert len(old_contacts) + 1 == app.contact.count()
     new_contacts = app.contact.get_contacts()
-    assert len(old_contacts) + 1 == len(new_contacts)
     old_contacts.append(contact)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)

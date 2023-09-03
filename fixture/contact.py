@@ -10,10 +10,12 @@ class ContactHelper:
     def click_enter_btn(self):
         wd = self.app.wd
         wd.find_element(By.XPATH, "//div[@id='content']/form/input[21]").click()
+        contact_cache = None
 
     def click_update_btn(self):
         wd = self.app.wd
         wd.find_element(By.NAME, "update").click()
+        contact_cache = None
 
     def fill_add_contact_form(self, contact):
         wd = self.app.wd
@@ -77,13 +79,14 @@ class ContactHelper:
         wd = self.app.wd
         return len(wd.find_elements(By.NAME, "selected[]"))
 
+    contact_cache = None
+
     def get_contacts(self):
         wd = self.app.wd
-        contacts = []
+        self.contact_cache = []
         for element in wd.find_elements(By.CSS_SELECTOR, "[name='entry']"):
             lastname = element.find_element(By.CSS_SELECTOR, 'td:nth-child(2)').text
             firstname = element.find_element(By.CSS_SELECTOR, 'td:nth-child(3)').text
             id = element.find_element(By.CSS_SELECTOR, "input").get_attribute("value")
-            contacts.append(Contact(lastname=lastname, firstname=firstname, id=id))
-        return contacts
-
+            self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id))
+        return list(self.contact_cache)
