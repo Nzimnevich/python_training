@@ -85,6 +85,7 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
+        self.app.navigation.open_add_contact_page()
         return len(wd.find_elements(By.NAME, "selected[]"))
 
     contact_cache = None
